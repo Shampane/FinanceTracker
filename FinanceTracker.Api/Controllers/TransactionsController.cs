@@ -1,8 +1,7 @@
-using System.Transactions;
-using FinanceTracker.Api.DataAccess;
+using FinanceTracker.Api.Messages;
 using FinanceTracker.Api.Models;
+using FinanceTracker.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FinanceTracker.Api.Controllers;
 
@@ -10,44 +9,48 @@ namespace FinanceTracker.Api.Controllers;
 [Route("[controller]")]
 public class TransactionsController : ControllerBase
 {
-    public TransactionsController(FinanceDbContext dbContext)
+    public TransactionsController(ITransactionsRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
 
-    private readonly FinanceDbContext _dbContext;
+    private readonly ITransactionsRepository _repository;
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetAll()
     {
-        var list = await _dbContext
-            .Transactions.AsNoTracking()
-            .ToListAsync();
-        return Ok(list);
+        var list = await _repository.GetEntities();
+        return Ok(new TransactionsCreateResponse(list));
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(
-        string name,
-        string category,
-        decimal price
+    public IActionResult Create(
+        [FromBody] TransactionsCreateRequest request
     )
     {
-        TransactionEntity entity = new(name, category, price);
-        await _dbContext.Transactions.AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
+        TransactionEntity entity =
+            new(
+                request.Name,
+                request.Category,
+                request.Description,
+                request.Price
+            );
+
+        _repository.InsertEntity(entity);
         return Ok();
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Remove(Guid id)
+    public async Task<IActionResult> Delete(
+        [FromBody] TransactionsDeleteRequest request
+    )
     {
-        TransactionEntity? entity =
-            await _dbContext.Transactions.FindAsync(id);
+        var entity = await _repository.SearchEntityById(request.Id);
         if (entity == null)
         {
             return NotFound();
         }
+        await _repository.RemoveEntity(entity);
         return Ok();
     }
 }

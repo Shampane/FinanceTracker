@@ -1,4 +1,5 @@
 using FinanceTracker.Api.DataAccess;
+using FinanceTracker.Api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinanceTracker.Api;
@@ -13,6 +14,10 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddScoped<
+            ITransactionsRepository,
+            TransactionsRepository
+        >();
         builder.Services.AddDbContext<FinanceDbContext>();
 
         var app = builder.Build();

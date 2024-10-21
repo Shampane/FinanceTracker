@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinanceTracker.Api.Migrations
 {
     [DbContext(typeof(FinanceDbContext))]
-    [Migration("20241021181615_newDbMigration")]
-    partial class newDbMigration
+    [Migration("20241021185526_dbMigration")]
+    partial class dbMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,10 @@ namespace FinanceTracker.Api.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
