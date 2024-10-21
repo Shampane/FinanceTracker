@@ -40,9 +40,33 @@ public class TransactionsController : ControllerBase
         return Ok();
     }
 
+    [HttpPut]
+    public async Task<IActionResult> Update(
+        [FromQuery] Guid id,
+        [FromBody] TransactionsUpdateRequest request
+    )
+    {
+        var entity = await _repository.SearchEntityById(id);
+        if (entity == null)
+        {
+            return NotFound();
+        }
+
+        TransactionEntity updateEntity =
+            new(
+                request.Name,
+                request.Category,
+                request.Description,
+                request.Price
+            );
+
+        await _repository.UpdateEntity(entity, updateEntity);
+        return Ok();
+    }
+
     [HttpDelete]
     public async Task<IActionResult> Delete(
-        [FromBody] TransactionsDeleteRequest request
+        [FromQuery] TransactionsDeleteRequest request
     )
     {
         var entity = await _repository.SearchEntityById(request.Id);

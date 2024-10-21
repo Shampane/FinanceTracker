@@ -27,6 +27,20 @@ public class TransactionsRepository : ITransactionsRepository
         await _dbContext.SaveChangesAsync();
     }
 
+    public async Task UpdateEntity(
+        TransactionEntity entity,
+        TransactionEntity updateEntity
+    )
+    {
+        entity.Name = updateEntity.Name;
+        entity.Category = updateEntity.Category;
+        entity.Description = updateEntity.Description;
+        entity.Price = updateEntity.Price;
+
+        _dbContext.Entry(entity).State = EntityState.Modified;
+        await _dbContext.SaveChangesAsync();
+    }
+
     public async Task RemoveEntity(TransactionEntity entity)
     {
         _dbContext.Transactions.Remove(entity);

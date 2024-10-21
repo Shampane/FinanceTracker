@@ -13,4 +13,11 @@ public record TransactionsCreateResponse(
     IEnumerable<TransactionEntity?> List
 );
 
+public record TransactionsUpdateRequest(
+    string Name,
+    string Category,
+    string Description,
+    decimal Price
+);
+
 public record TransactionsDeleteRequest(Guid Id);
