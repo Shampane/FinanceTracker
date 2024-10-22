@@ -13,26 +13,24 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy(
-                "AllowClientLocalhost",
-                builder =>
-                {
-                    builder
-                        .WithOrigins("http://localhost:5000")
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials();
-                }
-            );
-        });
 
         builder.Services.AddScoped<
             ITransactionsRepository,
             TransactionsRepository
         >();
         builder.Services.AddDbContext<FinanceDbContext>();
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:5000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            });
+        });
 
         var app = builder.Build();
 
@@ -42,7 +40,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseCors("AllowClientLocalhost");
+        app.UseCors();
         app.UseAuthorization();
         app.MapControllers();
 
