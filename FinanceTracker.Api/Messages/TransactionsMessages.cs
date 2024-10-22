@@ -2,6 +2,12 @@ using FinanceTracker.Api.Models;
 
 namespace FinanceTracker.Api.Messages;
 
+public record TransactionsGetRequest(
+    Guid Id,
+    string? SearchName,
+    string? searchCategory
+);
+
 public record TransactionsCreateRequest(
     string Name,
     string Category,
@@ -9,9 +15,7 @@ public record TransactionsCreateRequest(
     decimal Price
 );
 
-public record TransactionsCreateResponse(
-    IEnumerable<TransactionEntity?> List
-);
+public record TransactionsCreateResponse(IEnumerable<TransactionEntity?> List);
 
 public record TransactionsUpdateRequest(
     string Name,

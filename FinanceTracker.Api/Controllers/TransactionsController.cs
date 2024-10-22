@@ -17,16 +17,30 @@ public class TransactionsController : ControllerBase
     private readonly ITransactionsRepository _repository;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> Get(
+        [FromQuery] TransactionsGetRequest request
+    )
     {
-        var list = await _repository.GetEntities();
+        if (request.Id != Guid.Empty)
+        {
+            var entity = await _repository.SearchEntityById(request.Id);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return Ok(entity);
+        }
+
+        var list = await _repository.SearchEntities(
+            request.SearchName,
+            request.searchCategory
+        );
+
         return Ok(new TransactionsCreateResponse(list));
     }
 
     [HttpPost]
-    public IActionResult Create(
-        [FromBody] TransactionsCreateRequest request
-    )
+    public IActionResult Create([FromBody] TransactionsCreateRequest request)
     {
         TransactionEntity entity =
             new(
