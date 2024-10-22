@@ -31,9 +31,11 @@ public class TransactionsController : ControllerBase
             return Ok(entity);
         }
 
-        var list = await _repository.SearchEntities(
+        var list = await _repository.GetEntitiesWithConditions(
             request.SearchName,
-            request.searchCategory
+            request.SearchCategory,
+            request.SortType,
+            request.SortOrder
         );
 
         return Ok(new TransactionsCreateResponse(list));
@@ -42,16 +44,24 @@ public class TransactionsController : ControllerBase
     [HttpPost]
     public IActionResult Create([FromBody] TransactionsCreateRequest request)
     {
-        TransactionEntity entity =
-            new(
-                request.Name,
-                request.Category,
-                request.Description,
-                request.Price
-            );
+        try
+        {
+            TransactionEntity entity =
+                new(
+                    request.Name,
+                    request.Category,
+                    request.Description,
+                    request.Price,
+                    request.TransactionDate
+                );
 
-        _repository.InsertEntity(entity);
-        return Ok();
+            _repository.InsertEntity(entity);
+            return Ok("Entity was created");
+        }
+        catch
+        {
+            return BadRequest();
+        }
     }
 
     [HttpPut]
@@ -66,16 +76,24 @@ public class TransactionsController : ControllerBase
             return NotFound();
         }
 
-        TransactionEntity updateEntity =
-            new(
-                request.Name,
-                request.Category,
-                request.Description,
-                request.Price
-            );
+        try
+        {
+            TransactionEntity updateEntity =
+                new(
+                    request.Name,
+                    request.Category,
+                    request.Description,
+                    request.Price,
+                    request.TransactionDate
+                );
 
-        await _repository.UpdateEntity(entity, updateEntity);
-        return Ok();
+            await _repository.UpdateEntity(entity, updateEntity);
+            return Ok("Entity was updated");
+        }
+        catch
+        {
+            return BadRequest();
+        }
     }
 
     [HttpDelete]
@@ -89,6 +107,6 @@ public class TransactionsController : ControllerBase
             return NotFound();
         }
         await _repository.RemoveEntity(entity);
-        return Ok();
+        return Ok("Entity was removed");
     }
 }

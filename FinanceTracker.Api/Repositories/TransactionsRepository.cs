@@ -19,6 +19,76 @@ public class TransactionsRepository : ITransactionsRepository
         return list;
     }
 
+    public async Task<IEnumerable<TransactionEntity>> GetEntitiesWithConditions(
+        string? searchName,
+        string? searchCategory,
+        string? sortType,
+        string? sortOrder
+    )
+    {
+        var query = _dbContext.Transactions.AsNoTracking().AsQueryable();
+        query = query.OrderByDescending(e => e.TransactionDate);
+
+        if (!string.IsNullOrEmpty(searchName))
+            query = query.Where(e =>
+                e.Name.ToLower().Contains(searchName.ToLower())
+            );
+        if (!string.IsNullOrEmpty(searchCategory))
+            query = query.Where(e =>
+                e.Category.ToLower().Contains(searchCategory.ToLower())
+            );
+
+        if (!string.IsNullOrEmpty(sortType))
+        {
+            if (
+                !string.IsNullOrEmpty(sortOrder)
+                && (
+                    sortOrder.ToLower() == "asc"
+                    || sortOrder.ToLower() == "desc"
+                )
+            )
+            {
+                bool isDesc =
+                    sortOrder.ToLower() == "desc"
+                        ? sortOrder.ToLower() == "desc"
+                        : false;
+
+                query = sortType.ToLower() switch
+                {
+                    "category"
+                        => isDesc
+                            ? query.OrderByDescending(e => e.Category)
+                            : query.OrderBy(e => e.Category),
+                    "price"
+                        => isDesc
+                            ? query.OrderByDescending(e => e.Price)
+                            : query.OrderBy(e => e.Price),
+                    "date"
+                        => isDesc
+                            ? query.OrderByDescending(e => e.TransactionDate)
+                            : query.OrderBy(e => e.TransactionDate),
+                    _ => query
+                };
+            }
+            else if (sortOrder == null)
+            {
+                query = sortType.ToLower() switch
+                {
+                    "category" => query.OrderBy(e => e.Category),
+                    "price" => query.OrderBy(e => e.Price),
+                    "date" => query.OrderBy(e => e.TransactionDate),
+                    _ => query
+                };
+            }
+            else
+            {
+                return new List<TransactionEntity>();
+            }
+        }
+        var list = await query.ToListAsync();
+        return list;
+    }
+
     public async Task InsertEntity(TransactionEntity entity)
     {
         await _dbContext.Transactions.AddAsync(entity);
@@ -34,6 +104,7 @@ public class TransactionsRepository : ITransactionsRepository
         entity.Category = updateEntity.Category;
         entity.Description = updateEntity.Description;
         entity.Price = updateEntity.Price;
+        entity.TransactionDate = updateEntity.TransactionDate;
 
         _dbContext.Entry(entity).State = EntityState.Modified;
         await _dbContext.SaveChangesAsync();
@@ -49,23 +120,5 @@ public class TransactionsRepository : ITransactionsRepository
     {
         TransactionEntity? entity = await _dbContext.Transactions.FindAsync(id);
         return entity;
-    }
-
-    public async Task<IEnumerable<TransactionEntity>> SearchEntities(
-        string? searchName,
-        string? searchCategory
-    )
-    {
-        var query = _dbContext.Transactions.AsNoTracking().AsQueryable();
-        if (!string.IsNullOrEmpty(searchName))
-            query = query.Where(e =>
-                e.Name.ToLower().StartsWith(searchName.ToLower())
-            );
-        if (!string.IsNullOrEmpty(searchCategory))
-            query = query.Where(e =>
-                e.Category.ToLower().StartsWith(searchCategory.ToLower())
-            );
-        var list = await query.ToListAsync();
-        return list;
     }
 }

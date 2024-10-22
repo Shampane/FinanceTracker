@@ -13,6 +13,20 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(
+                "AllowClientLocalhost",
+                builder =>
+                {
+                    builder
+                        .WithOrigins("http://localhost:5000")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                }
+            );
+        });
 
         builder.Services.AddScoped<
             ITransactionsRepository,
@@ -28,6 +42,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseCors("AllowClientLocalhost");
         app.UseAuthorization();
         app.MapControllers();
 
