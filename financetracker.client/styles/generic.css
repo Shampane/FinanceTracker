@@ -1,0 +1,61 @@
+h1 {
+  font-size: 2em;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+h1,
+h2,
+h3 {
+  margin: calc(0.2vh + 2px) 0;
+}
+
+input {
+  margin: calc(0.2vh + 2px) 0;
+  padding: calc(0.2vh + 4px) calc(0.4vw + 4px);
+  border: 2px solid var(--accent-border-color);
+  border-radius: 100em;
+  font-weight: 600;
+  color: var(--accent-font-color);
+}
+
+button {
+  padding: calc(0.4vh + 4px) calc(0.6vw + 4px);
+  transition: 0.2s ease-in-out;
+  background-color: var(--accent-color);
+  border-radius: 100em;
+  color: hsl(0, 0%, 100%);
+}
+
+button:hover {
+  background-color: var(--accent-hover-color);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: calc(0.2vh + 2px) 0;
+}
+
+table thead {
+  background-color: var(--accent-color);
+}
+
+table th {
+  border: 2px solid var(--accent-color);
+  font-size: 1.1em;
+  color: hsl(0, 0%, 100%);
+  text-align: center;
+}
+
+table td {
+  border: 2px solid var(--accent-border-color);
+}
+
+table th,
+table td {
+  padding: calc(0.2vh + 4px) calc(0.4vw + 4px);
+}

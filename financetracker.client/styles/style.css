@@ -1,16 +1,15 @@
 @import 'reset.css';
 @import 'fonts.css';
+@import 'generic.css';
+
+:root {
+  --accent-color: hsl(200, 60%, 60%);
+  --accent-hover-color: hsl(200, 60%, 50%);
+  --accent-border-color: hsl(200, 50%, 85%);
+  --accent-font-color: hsl(200, 60%, 30%);
+}
 
 body {
   font-family: 'Ubuntu Sans', 'Arial', sans-serif;
   font-size: 16px;
-}
-
-h1 {
-  font-size: 2em;
-  font-weight: 800;
-}
-
-h2 {
-  font-size: 1.6em;
 }
