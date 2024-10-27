@@ -1,18 +1,11 @@
 <template>
   <main class="main">
-    <TransactionCardGet />
+    <TransactionPage />
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import TransactionCardGet from './components/TransactionCardGet.vue';
-
-export default defineComponent({
-  components: {
-    TransactionCardGet,
-  },
-});
+<script setup lang="ts">
+import TransactionPage from './modules/getTransaction/views/TransactionPage.vue';
 </script>
 
 <style scoped>

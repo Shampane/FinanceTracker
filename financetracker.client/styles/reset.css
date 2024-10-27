@@ -16,6 +16,9 @@
 }
 
 button,
-a {
+a,
+input[type='button'],
+input[type='radio'],
+label {
   cursor: pointer;
 }
