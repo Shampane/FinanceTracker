@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ITransactionEntity } from '../types/ITransactionEntity';
+import { ITransactionEntity } from '../../../types/ITransactionEntity';
 
 export class GetTransactions {
   public get = async (url: string): Promise<ITransactionEntity[]> => {

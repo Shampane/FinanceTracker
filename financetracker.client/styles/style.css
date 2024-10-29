@@ -8,6 +8,9 @@
   --accent-radio-color: hsl(200, 50%, 95%);
   --accent-border-color: hsl(200, 50%, 85%);
   --accent-font-color: hsl(200, 60%, 30%);
+
+  --green-color: hsl(150, 60%, 40%);
+  --red-color: hsl(0, 80%, 60%);
 }
 
 body {

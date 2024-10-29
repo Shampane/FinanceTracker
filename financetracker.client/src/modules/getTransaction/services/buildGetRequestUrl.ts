@@ -1,6 +1,6 @@
 const isQueryStart = (url: string) => (url.includes('?') ? '&' : '?');
 
-export const buildGetResponseUrl = (
+export const buildGetRequestUrl = (
   startUrl: string,
   searchId: string,
   searchName: string,

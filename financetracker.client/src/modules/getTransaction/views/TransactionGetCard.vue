@@ -1,26 +1,28 @@
 <template>
-  <h1>Get Transactions</h1>
-  <div class="grid_fields">
-    <SearchField title="Id" v-model="searchId" />
-    <SearchField title="Name" v-model="searchName" />
-    <SearchField title="Category" v-model="searchCategory" />
-    <SortField
-      title="Sort Type"
-      :options="sortTypeOptions"
-      v-model="sortType"
-    />
-    <SortField
-      title="Sort Order"
-      :options="sortOrderOptions"
-      v-model="sortOrder"
-    />
+  <div>
+    <h1>Get Transactions</h1>
+    <div class="grid_fields">
+      <SearchField title="Id" v-model="searchId" />
+      <SearchField title="Name" v-model="searchName" />
+      <SearchField title="Category" v-model="searchCategory" />
+      <SortField
+        title="Sort Type"
+        :options="sortTypeOptions"
+        v-model="sortType"
+      />
+      <SortField
+        title="Sort Order"
+        :options="sortOrderOptions"
+        v-model="sortOrder"
+      />
+    </div>
+
+    <button type="button" @click="handleClick" class="button">
+      Request to get
+    </button>
+
+    <Table :list="responseList" />
   </div>
-
-  <button type="button" @click="handleClick" class="button">
-    Request to get
-  </button>
-
-  <Table :list="responseList" />
 </template>
 
 <script setup lang="ts">
@@ -29,9 +31,9 @@ import SearchField from '../components/TransactionGetSearchField.vue';
 import SortField from '../components/TransactionGetSortField.vue';
 import Table from '../components/TransactionGetTable.vue';
 
-import { buildGetResponseUrl } from '../services/buildGetResponseUrl';
-import { GetTransactions } from '../services/GetTransactions';
-import { ITransactionEntity } from '../types/ITransactionEntity';
+import { buildGetRequestUrl } from '../services/buildGetRequestUrl';
+import { GetTransactions } from '../services/getTransactions';
+import { ITransactionEntity } from '../../../types/ITransactionEntity';
 
 const searchId: Ref<string> = ref('');
 const searchName: Ref<string> = ref('');
@@ -39,15 +41,15 @@ const searchCategory: Ref<string> = ref('');
 const sortType: Ref<string> = ref('');
 const sortOrder: Ref<string> = ref('');
 
-const responseUrl: Ref<string> = ref('http://localhost:8080/Transactions');
+const requestUrl: Ref<string> = ref('http://localhost:8080/Transactions');
 const responseList: Ref<ITransactionEntity[]> = ref([]);
-const responseClass = new GetTransactions();
+const requestClass = new GetTransactions();
 
 const sortTypeOptions: string[] = ['Category', 'Price', 'Date'];
 const sortOrderOptions: string[] = ['ASC', 'DESC'];
 
 const handleClick = async () => {
-  responseUrl.value = buildGetResponseUrl(
+  requestUrl.value = buildGetRequestUrl(
     'http://localhost:8080/Transactions',
     searchId.value,
     searchName.value,
@@ -55,18 +57,18 @@ const handleClick = async () => {
     sortType.value,
     sortOrder.value,
   );
-  if (responseUrl.value.includes('Id')) {
+  if (requestUrl.value.includes('Id')) {
     try {
       responseList.value = Array(1).fill(
-        await responseClass.getById(responseUrl.value),
+        await requestClass.getById(requestUrl.value),
       );
     } catch {
       responseList.value = [];
     }
   } else {
-    responseList.value = await responseClass.get(responseUrl.value);
+    responseList.value = await requestClass.get(requestUrl.value);
   }
-  responseUrl.value = 'http://localhost:8080/Transactions';
+  requestUrl.value = 'http://localhost:8080/Transactions';
 };
 </script>
 
@@ -82,7 +84,5 @@ const handleClick = async () => {
 
 .button {
   margin-top: 1vh;
-  font-size: 1.1em;
-  font-weight: 700;
 }
 </style>

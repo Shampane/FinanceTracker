@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ITransactionEntity } from '../types/ITransactionEntity';
+import { ITransactionEntity } from '../../../types/ITransactionEntity';
 
 interface Props {
   list: ITransactionEntity[];
