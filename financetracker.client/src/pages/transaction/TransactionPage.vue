@@ -2,6 +2,7 @@
   <div class="cards">
     <GetCard />
     <CreateCard />
+    <UpdateCard />
     <RemoveCard />
   </div>
 </template>
@@ -10,6 +11,7 @@
 import GetCard from './getCard/TransactionGetCard.vue';
 import RemoveCard from './removeCard/TransactionRemoveCard.vue';
 import CreateCard from './createCard/TransactionCreateCard.vue';
+import UpdateCard from './updateCard/TransactionUpdateCard.vue';
 </script>
 
 <style lang="css" scoped>

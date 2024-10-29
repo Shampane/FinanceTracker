@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { IRequestTransactionEntity } from '../../../../types/IRequestTransactionEntity';
 
-export class CreateTransaction {
-  public create = async (
+export class UpdateTransaction {
+  public update = async (
     url: string,
     entity: IRequestTransactionEntity,
   ): Promise<void> => {
-    await axios.post(url, entity);
+    await axios.put(url, entity);
   };
 }

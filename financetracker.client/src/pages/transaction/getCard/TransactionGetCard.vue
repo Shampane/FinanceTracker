@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="theme--blue">
     <h1>Get Transactions</h1>
     <div class="grid_fields">
       <SearchField title="Id" v-model="searchId" />

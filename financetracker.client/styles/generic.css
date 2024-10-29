@@ -17,10 +17,8 @@ input {
   display: block;
   margin: calc(0.2vh + 4px) 0;
   padding: calc(0.2vh + 4px) calc(0.4vw + 4px);
-  border: 2px solid var(--accent-border-color);
   border-radius: 100em;
   font-weight: 600;
-  color: var(--accent-font-color);
 }
 
 button {
@@ -28,13 +26,8 @@ button {
   font-weight: 700;
   padding: calc(0.2vh + 8px) calc(0.4vw + 8px);
   transition: 0.2s ease-in-out;
-  background-color: var(--accent-color);
   border-radius: 100em;
   color: hsl(0, 0%, 100%);
-}
-
-button:hover {
-  background-color: var(--accent-hover-color);
 }
 
 table {
@@ -43,19 +36,10 @@ table {
   margin: calc(0.2vh + 2px) 0;
 }
 
-table thead {
-  background-color: var(--accent-color);
-}
-
 table th {
-  border: 2px solid var(--accent-color);
   font-size: 1.1em;
   color: hsl(0, 0%, 100%);
   text-align: center;
-}
-
-table td {
-  border: 2px solid var(--accent-border-color);
 }
 
 table th,
@@ -83,13 +67,8 @@ input[type='radio'] + label:before {
   bottom: 0;
   left: 0;
   height: 1em;
-  background: var(--accent-radio-color);
   border-radius: 100%;
   transition: 0.2s ease-in-out;
-}
-
-input[type='radio']:checked + label:before {
-  background: var(--accent-color);
 }
 
 input[type='radio']:disabled + label:before {

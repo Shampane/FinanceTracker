@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="theme--red">
     <h1>Remove Transaction</h1>
-    <h2>Delete By Id</h2>
+    <h2 style="margin-top: 1.2vh">Delete By Id</h2>
     <input
       type="text"
       v-model="removeId"
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import { RemoveTransactions } from './services/removeTransactions';
+import { RemoveTransaction } from './services/removeTransactions';
 
 type IResponseMessage =
   | ''
@@ -31,7 +31,7 @@ type IResponseMessage =
   | "Exception: the entity wasn't removed";
 
 const requestUrl: Ref<string> = ref('http://localhost:8080/Transactions');
-const requestClass = new RemoveTransactions();
+const requestClass = new RemoveTransaction();
 const removeId: Ref<string> = ref('');
 
 const responseStatus: Ref<boolean> = ref(false);

@@ -1,4 +1,4 @@
-export interface ICreateTransactionEntity {
+export interface IRequestTransactionEntity {
   name: string;
   category: string;
   description: string;

@@ -1,17 +1,18 @@
 <template>
-  <div class="theme--green">
-    <h1>Create Transaction</h1>
+  <div class="theme--orange">
+    <h1>Update Transaction</h1>
     <div class="grid_fields">
-      <CreateField title="Name" v-model="nameField" />
-      <CreateField title="Category" v-model="categoryField" />
-      <CreateField title="Description" v-model="descriptionField" />
-      <CreateField title="Price" v-model="priceField" />
-      <CreateField title="Year" v-model="yearField" />
-      <CreateField title="Month" v-model="monthField" />
-      <CreateField title="Day" v-model="dayField" />
+      <UpdateField title="Id" v-model="updateId" />
+      <UpdateField title="Name" v-model="nameField" />
+      <UpdateField title="Category" v-model="categoryField" />
+      <UpdateField title="Description" v-model="descriptionField" />
+      <UpdateField title="Price" v-model="priceField" />
+      <UpdateField title="Year" v-model="yearField" />
+      <UpdateField title="Month" v-model="monthField" />
+      <UpdateField title="Day" v-model="dayField" />
     </div>
     <button type="button" class="button" @click="handleClick">
-      Request to create
+      Request to update
     </button>
     <p
       :class="[
@@ -24,17 +25,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from 'vue';
-import CreateField from './components/TransactionCreateField.vue';
+import { Ref, ref } from 'vue';
+import UpdateField from './components/TransactionUpdateField.vue';
+import { UpdateTransaction } from './services/updateTransaction';
 import { IRequestTransactionEntity } from '../../../types/IRequestTransactionEntity';
 import { buildRequestTransactionEntity } from '../../../services/buildRequestTransactionEntity';
-import { CreateTransaction } from './services/createTransaction';
 
 type IResponseMessage =
   | ''
-  | 'The entity was created!'
-  | "Exception: the entity wasn't created";
+  | 'The entity was updated!'
+  | "Exception: the entity wasn't updated";
 
+const updateId: Ref<string> = ref('');
 const nameField: Ref<string> = ref('');
 const categoryField: Ref<string> = ref('');
 const descriptionField: Ref<string> = ref('');
@@ -43,14 +45,14 @@ const yearField: Ref<number | undefined> = ref();
 const monthField: Ref<number | undefined> = ref();
 const dayField: Ref<number | undefined> = ref();
 
+const requestUrl: Ref<string> = ref('http://localhost:8080/Transactions');
+const requestClass = new UpdateTransaction();
+
 const responseStatus: Ref<boolean> = ref(false);
 const responseMessage: Ref<IResponseMessage> = ref('');
 
-const requestClass = new CreateTransaction();
-
 const handleClick = async () => {
-  const url: string = 'http://localhost:8080/Transactions';
-
+  requestUrl.value = `http://localhost:8080/Transactions?Id=${updateId.value}`;
   try {
     if (Number(priceField.value) <= 0) {
       throw new Error('Price must be bigger than 0');
@@ -68,13 +70,14 @@ const handleClick = async () => {
       );
     console.log(newTransaction);
 
-    await requestClass.create(url, newTransaction);
+    await requestClass.update(requestUrl.value, newTransaction);
     responseStatus.value = true;
-    responseMessage.value = 'The entity was created!';
+    responseMessage.value = 'The entity was updated!';
   } catch {
     responseStatus.value = false;
-    responseMessage.value = "Exception: the entity wasn't created";
+    responseMessage.value = "Exception: the entity wasn't updated";
   }
+  requestUrl.value = `http://localhost:8080/Transactions`;
 };
 </script>
 

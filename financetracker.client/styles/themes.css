@@ -1,0 +1,182 @@
+:root {
+  --blue-color: hsl(210, 100%, 70%);
+  --blue-hover-color: hsl(210, 100%, 60%);
+  --blue-background-color: hsl(210, 90%, 95%);
+  --blue-border-color: hsl(210, 90%, 80%);
+  --blue-font-color: hsl(210, 100%, 20%);
+  --blue-subfont-color: hsl(210, 100%, 30%);
+  --green-color: hsl(150, 55%, 55%);
+  --green-hover-color: hsl(150, 55%, 45%);
+  --green-background-color: hsl(150, 45%, 90%);
+  --green-border-color: hsl(150, 45%, 75%);
+  --green-font-color: hsl(150, 55%, 20%);
+  --green-subfont-color: hsl(150, 55%, 30%);
+  --orange-color: hsl(35, 90%, 60%);
+  --orange-hover-color: hsl(35, 90%, 50%);
+  --orange-background-color: hsl(35, 80%, 95%);
+  --orange-border-color: hsl(35, 80%, 80%);
+  --orange-font-color: hsl(35, 80%, 20%);
+  --orange-subfont-color: hsl(35, 80%, 30%);
+  --red-color: hsl(0, 80%, 60%);
+  --red-hover-color: hsl(0, 80%, 50%);
+  --red-background-color: hsl(0, 70%, 95%);
+  --red-border-color: hsl(0, 70%, 80%);
+  --red-font-color: hsl(0, 80%, 20%);
+  --red-subfont-color: hsl(0, 80%, 30%);
+}
+
+/* Blue Theme */
+
+.theme--blue {
+  color: var(--blue-font-color);
+}
+
+.theme--blue input {
+  border: 2px solid var(--blue-border-color);
+  color: var(--blue-subfont-color);
+}
+
+.theme--blue button {
+  background-color: var(--blue-color);
+}
+
+.theme--blue button:hover {
+  background-color: var(--blue-hover-color);
+}
+
+.theme--blue table thead {
+  background-color: var(--blue-color);
+}
+
+.theme--blue table th {
+  border: 2px solid var(--blue-color);
+}
+
+.theme--blue table td {
+  border: 2px solid var(--blue-border-color);
+}
+
+.theme--blue input[type='radio'] + label:before {
+  background: var(--blue-background-color);
+}
+
+.theme--blue input[type='radio']:checked + label:before {
+  background: var(--blue-color);
+}
+
+/* Green Theme */
+
+.theme--green {
+  color: var(--green-font-color);
+}
+
+.theme--green input {
+  border: 2px solid var(--green-border-color);
+  color: var(--green-subfont-color);
+}
+
+.theme--green button {
+  background-color: var(--green-color);
+}
+
+.theme--green button:hover {
+  background-color: var(--green-hover-color);
+}
+
+.theme--green table thead {
+  background-color: var(--green-color);
+}
+
+.theme--green table th {
+  border: 2px solid var(--green-color);
+}
+
+.theme--green table td {
+  border: 2px solid var(--green-border-color);
+}
+
+.theme--green input[type='radio'] + label:before {
+  background: var(--green-background-color);
+}
+
+.theme--green input[type='radio']:checked + label:before {
+  background: var(--green-color);
+}
+
+/* Orange Theme */
+
+.theme--orange {
+  color: var(--orange-font-color);
+}
+
+.theme--orange input {
+  border: 2px solid var(--orange-border-color);
+  color: var(--orange-subfont-color);
+}
+
+.theme--orange button {
+  background-color: var(--orange-color);
+}
+
+.theme--orange button:hover {
+  background-color: var(--orange-hover-color);
+}
+
+.theme--orange table thead {
+  background-color: var(--orange-color);
+}
+
+.theme--orange table th {
+  border: 2px solid var(--orange-color);
+}
+
+.theme--orange table td {
+  border: 2px solid var(--orange-border-color);
+}
+
+.theme--orange input[type='radio'] + label:before {
+  background: var(--orange-background-color);
+}
+
+.theme--orange input[type='radio']:checked + label:before {
+  background: var(--orange-color);
+}
+
+/* Red Theme */
+
+.theme--red {
+  color: var(--red-font-color);
+}
+
+.theme--red input {
+  border: 2px solid var(--red-border-color);
+  color: var(--red-subfont-color);
+}
+
+.theme--red button {
+  background-color: var(--red-color);
+}
+
+.theme--red button:hover {
+  background-color: var(--red-hover-color);
+}
+
+.theme--red table thead {
+  background-color: var(--red-color);
+}
+
+.theme--red table th {
+  border: 2px solid var(--red-color);
+}
+
+.theme--red table td {
+  border: 2px solid var(--red-border-color);
+}
+
+.theme--red input[type='radio'] + label:before {
+  background: var(--red-background-color);
+}
+
+.theme--red input[type='radio']:checked + label:before {
+  background: var(--red-color);
+}

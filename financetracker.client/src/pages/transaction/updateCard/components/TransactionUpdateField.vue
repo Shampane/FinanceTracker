@@ -4,7 +4,11 @@
     <input
       type="text"
       v-model="model"
-      :placeholder="`Write ${title ?? 'value'} of new Transaction Entity...`"
+      :placeholder="`Write ${title ?? 'value'} ${
+        title.toLowerCase() == 'id'
+          ? 'to search entity'
+          : 'of Transaction Entity'
+      }...`"
     />
   </div>
 </template>
