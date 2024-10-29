@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import { RemoveTransactions } from '../services/removeTransactions';
+import { RemoveTransactions } from './services/removeTransactions';
 
 type IResponseMessage =
   | ''

@@ -2,19 +2,23 @@ namespace FinanceTracker.Api.Models;
 
 public class TransactionEntity
 {
+    public TransactionEntity() { }
+
     public TransactionEntity(
         string name,
         string category,
         string description,
         decimal price,
-        DateOnly transactionDate
+        int year,
+        int month,
+        int day
     )
     {
         Name = name;
         Category = category;
         Description = description;
         Price = price;
-        TransactionDate = transactionDate;
+        TransactionDate = new DateOnly(year, month, day);
     }
 
     public Guid Id { get; set; }

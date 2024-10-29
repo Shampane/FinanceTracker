@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import TransactionPage from './modules/TransactionPage.vue';
+import TransactionPage from './pages/transaction/TransactionPage.vue';
 </script>
 
 <style scoped>

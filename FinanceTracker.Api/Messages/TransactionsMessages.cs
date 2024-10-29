@@ -15,7 +15,9 @@ public record TransactionsCreateRequest(
     string Category,
     string Description,
     decimal Price,
-    DateOnly TransactionDate
+    int Year,
+    int Month,
+    int Day
 );
 
 public record TransactionsCreateResponse(IEnumerable<TransactionEntity?> List);
@@ -25,7 +27,9 @@ public record TransactionsUpdateRequest(
     string Category,
     string Description,
     decimal Price,
-    DateOnly TransactionDate
+    int Year,
+    int Month,
+    int Day
 );
 
 public record TransactionsDeleteRequest(Guid Id);

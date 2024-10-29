@@ -27,12 +27,12 @@
 
 <script setup lang="ts">
 import { ref, type Ref } from 'vue';
-import SearchField from '../components/TransactionGetSearchField.vue';
-import SortField from '../components/TransactionGetSortField.vue';
-import Table from '../components/TransactionGetTable.vue';
+import SearchField from './components/TransactionGetSearchField.vue';
+import SortField from './components/TransactionGetSortField.vue';
+import Table from './components/TransactionGetTable.vue';
 
-import { buildGetRequestUrl } from '../services/buildGetRequestUrl';
-import { GetTransactions } from '../services/getTransactions';
+import { buildGetRequestUrl } from './services/buildGetRequestUrl';
+import { GetTransactions } from './services/getTransactions';
 import { ITransactionEntity } from '../../../types/ITransactionEntity';
 
 const searchId: Ref<string> = ref('');

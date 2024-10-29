@@ -1,13 +1,15 @@
 <template>
   <div class="cards">
     <GetCard />
+    <CreateCard />
     <RemoveCard />
   </div>
 </template>
 
 <script setup lang="ts">
-import GetCard from './getTransaction/views/TransactionGetCard.vue';
-import RemoveCard from './removeTransaction/views/TransactionRemoveCard.vue';
+import GetCard from './getCard/TransactionGetCard.vue';
+import RemoveCard from './removeCard/TransactionRemoveCard.vue';
+import CreateCard from './createCard/TransactionCreateCard.vue';
 </script>
 
 <style lang="css" scoped>

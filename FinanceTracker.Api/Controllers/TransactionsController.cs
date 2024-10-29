@@ -52,7 +52,9 @@ public class TransactionsController : ControllerBase
                     request.Category,
                     request.Description,
                     request.Price,
-                    request.TransactionDate
+                    request.Year,
+                    request.Month,
+                    request.Day
                 );
 
             _repository.InsertEntity(entity);
@@ -84,7 +86,9 @@ public class TransactionsController : ControllerBase
                     request.Category,
                     request.Description,
                     request.Price,
-                    request.TransactionDate
+                    request.Year,
+                    request.Month,
+                    request.Day
                 );
 
             await _repository.UpdateEntity(entity, updateEntity);
