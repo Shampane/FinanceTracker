@@ -23,20 +23,13 @@ public class TransactionsRepository : ITransactionsRepository
         string? searchName,
         string? searchCategory,
         string? sortType,
-        string? sortOrder
+        string? sortOrder,
+        uint? limitSize,
+        uint? limitPage
     )
     {
         var query = _dbContext.Transactions.AsNoTracking().AsQueryable();
         query = query.OrderByDescending(e => e.TransactionDate);
-
-        if (!string.IsNullOrEmpty(searchName))
-            query = query.Where(e =>
-                e.Name.ToLower().Contains(searchName.ToLower())
-            );
-        if (!string.IsNullOrEmpty(searchCategory))
-            query = query.Where(e =>
-                e.Category.ToLower().Contains(searchCategory.ToLower())
-            );
 
         if (!string.IsNullOrEmpty(sortType))
         {
@@ -85,6 +78,26 @@ public class TransactionsRepository : ITransactionsRepository
                 return new List<TransactionEntity>();
             }
         }
+
+        if (limitSize != null)
+        {
+            if (limitPage != null)
+                query = query
+                    .Skip((int)limitSize * (int)(limitPage - 1))
+                    .Take((int)limitSize);
+            else
+                query = query.Take((int)limitSize);
+        }
+
+        if (!string.IsNullOrEmpty(searchName))
+            query = query.Where(e =>
+                e.Name.ToLower().Contains(searchName.ToLower())
+            );
+        if (!string.IsNullOrEmpty(searchCategory))
+            query = query.Where(e =>
+                e.Category.ToLower().Contains(searchCategory.ToLower())
+            );
+
         var list = await query.ToListAsync();
         return list;
     }

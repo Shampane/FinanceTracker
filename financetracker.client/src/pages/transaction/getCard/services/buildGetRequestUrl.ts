@@ -1,4 +1,13 @@
-const isQueryStart = (url: string) => (url.includes('?') ? '&' : '?');
+const isQueryStart = (url: string) => (url.includes("?") ? "&" : "?");
+
+const addToUrl = (prop: string | number, propName: string, url: string) => {
+  let newUrl = url;
+  if (prop != "" && !url.includes(propName)) {
+    newUrl += isQueryStart(url);
+    newUrl += `${propName}=${prop}`;
+  }
+  return newUrl;
+};
 
 export const buildGetRequestUrl = (
   startUrl: string,
@@ -7,28 +16,18 @@ export const buildGetRequestUrl = (
   searchCategory: string,
   sortType: string,
   sortOrder: string,
+  paginationSize: number,
+  paginationPage: number
 ): string => {
   let url: string = startUrl;
-  if (searchId != '' && !url.includes('Id')) {
-    url += isQueryStart(url);
-    url += `Id=${searchId}`;
-    return url;
-  }
-  if (searchName != '' && !url.includes('SearchName')) {
-    url += isQueryStart(url);
-    url += `SearchName=${searchName}`;
-  }
-  if (searchCategory != '' && !url.includes('SearchCategory')) {
-    url += isQueryStart(url);
-    url += `SearchCategory=${searchCategory}`;
-  }
-  if (sortType != '' && !url.includes('SortType')) {
-    url += isQueryStart(url);
-    url += `SortType=${sortType}`;
-  }
-  if (sortOrder != '' && !url.includes('SortOrder')) {
-    url += isQueryStart(url);
-    url += `SortOrder=${sortOrder}`;
-  }
+
+  url = addToUrl(searchId, "SearchId", url);
+  url = addToUrl(sortType, "SortType", url);
+  url = addToUrl(sortOrder, "SortOrder", url);
+  url = addToUrl(paginationSize, "LimitSize", url);
+  url = addToUrl(paginationPage, "LimitPage", url);
+  url = addToUrl(searchName, "SearchName", url);
+  url = addToUrl(searchCategory, "SearchCategory", url);
+
   return url;
 };

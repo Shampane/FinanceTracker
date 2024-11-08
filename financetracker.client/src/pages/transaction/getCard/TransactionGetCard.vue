@@ -5,6 +5,9 @@
       <SearchField title="Id" v-model="searchId" />
       <SearchField title="Name" v-model="searchName" />
       <SearchField title="Category" v-model="searchCategory" />
+      <PaginationField title="Pagination Size" v-model="paginationSize" />
+      <PaginationField title="Pagination Page" v-model="paginationPage" />
+
       <SortField
         title="Sort Type"
         :options="sortTypeOptions"
@@ -26,41 +29,46 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from 'vue';
-import SearchField from './components/TransactionGetSearchField.vue';
-import SortField from './components/TransactionGetSortField.vue';
-import Table from './components/TransactionGetTable.vue';
+import { ref, type Ref } from "vue";
+import SearchField from "./components/TransactionGetSearchField.vue";
+import PaginationField from "./components/TransactionGetPaginationField.vue";
+import SortField from "./components/TransactionGetSortField.vue";
+import Table from "./components/TransactionGetTable.vue";
 
-import { buildGetRequestUrl } from './services/buildGetRequestUrl';
-import { GetTransactions } from './services/getTransactions';
-import { ITransactionEntity } from '../../../types/ITransactionEntity';
+import { buildGetRequestUrl } from "./services/buildGetRequestUrl";
+import { GetTransactions } from "./services/getTransactions";
+import { ITransactionEntity } from "../../../types/ITransactionEntity";
 
-const searchId: Ref<string> = ref('');
-const searchName: Ref<string> = ref('');
-const searchCategory: Ref<string> = ref('');
-const sortType: Ref<string> = ref('');
-const sortOrder: Ref<string> = ref('');
+const searchId: Ref<string> = ref("");
+const searchName: Ref<string> = ref("");
+const searchCategory: Ref<string> = ref("");
+const sortType: Ref<string> = ref("");
+const sortOrder: Ref<string> = ref("");
+const paginationSize: Ref<number> = ref(0);
+const paginationPage: Ref<number> = ref(0);
 
-const requestUrl: Ref<string> = ref('http://localhost:8080/Transactions');
+const requestUrl: Ref<string> = ref("http://localhost:8080/Transactions");
 const responseList: Ref<ITransactionEntity[]> = ref([]);
 const requestClass = new GetTransactions();
 
-const sortTypeOptions: string[] = ['Category', 'Price', 'Date'];
-const sortOrderOptions: string[] = ['ASC', 'DESC'];
+const sortTypeOptions: string[] = ["Category", "Price", "Date"];
+const sortOrderOptions: string[] = ["ASC", "DESC"];
 
 const handleClick = async () => {
   requestUrl.value = buildGetRequestUrl(
-    'http://localhost:8080/Transactions',
+    "http://localhost:8080/Transactions",
     searchId.value,
     searchName.value,
     searchCategory.value,
     sortType.value,
     sortOrder.value,
+    paginationSize.value,
+    paginationPage.value
   );
-  if (requestUrl.value.includes('Id')) {
+  if (requestUrl.value.includes("Id")) {
     try {
       responseList.value = Array(1).fill(
-        await requestClass.getById(requestUrl.value),
+        await requestClass.getById(requestUrl.value)
       );
     } catch {
       responseList.value = [];
@@ -68,7 +76,7 @@ const handleClick = async () => {
   } else {
     responseList.value = await requestClass.get(requestUrl.value);
   }
-  requestUrl.value = 'http://localhost:8080/Transactions';
+  requestUrl.value = "http://localhost:8080/Transactions";
 };
 </script>
 

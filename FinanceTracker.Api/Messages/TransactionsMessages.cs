@@ -7,7 +7,9 @@ public record TransactionsGetRequest(
     string? SearchName,
     string? SearchCategory,
     string? SortType,
-    string? SortOrder
+    string? SortOrder,
+    uint? LimitSize,
+    uint? LimitPage
 );
 
 public record TransactionsCreateRequest(

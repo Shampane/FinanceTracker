@@ -9,7 +9,9 @@ public interface ITransactionsRepository
         string? searchName,
         string? searchCategory,
         string? sortType,
-        string? sortOrder
+        string? sortOrder,
+        uint? limitSize,
+        uint? limitPage
     );
     Task InsertEntity(TransactionEntity entity);
     Task UpdateEntity(TransactionEntity entity, TransactionEntity updateEntity);

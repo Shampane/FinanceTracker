@@ -35,9 +35,10 @@ public class TransactionsController : ControllerBase
             request.SearchName,
             request.SearchCategory,
             request.SortType,
-            request.SortOrder
+            request.SortOrder,
+            request.LimitSize,
+            request.LimitPage
         );
-
         return Ok(new TransactionsCreateResponse(list));
     }
 
